@@ -16,7 +16,26 @@ function Page() {
       setError("All fields are necesary.");
       return;
     }
+    
     try {
+
+      const resUserExist = await fetch('/Api/userExist', {
+        method: 'POST',
+        headers: {
+          "Content-type": "application/json"
+        },
+        body: JSON.stringify({
+          email
+        })
+      })
+
+      const { userData } = await resUserExist.json();
+      if(userData){
+        setError('User already exist');
+        return;
+      }
+
+
       const res = await fetch("/Api/register", {
         method: "POST",
         headers: {
@@ -30,8 +49,8 @@ function Page() {
       });
 
       if (res.ok) {
-
-        redirect("/login");
+        console.log('tengo que redirecionar boluda')
+     /*    redirect("/login"); */
 
       } else {
         console.log("Error during registration.");

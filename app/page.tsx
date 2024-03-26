@@ -2,7 +2,10 @@
 
 function page() {
   return (
-    <div className="flex items-center">page</div>
+    <main className="flex items-center">
+      page
+      
+      </main>
   )
 }
 

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from 'next/image';
+import { IoArrowBackCircleSharp } from "react-icons/io5";
 
 
 function Page() {
@@ -64,7 +65,13 @@ function Page() {
     }
   };
 
+
+
   return (
+    <div>
+      <a href="/">
+    <IoArrowBackCircleSharp className="mb-9 text-4xl cursor-pointer hover:scale-75" />
+    </a>
     <div className="flex">
     <section className="bg-white/90 shadow-2xl flex flex-col items-center  gap-y-[20px] w-full p-9 rounded-[20px]">
       <h1 className="font-bold text-slate-700 text-6xl">Register</h1>
@@ -73,7 +80,7 @@ function Page() {
         <input
           id="name"
           onChange={(e) => setName(e.target.value)}
-          className="p-3 rounded-[8px] border-none"
+          className="p-3 rounded-[8px] border-none text-slate-700"
           type="text"
           placeholder="Name"
           required
@@ -82,7 +89,7 @@ function Page() {
         <input
           id="email"
           onChange={(e) => setEmail(e.target.value)}
-          className="p-3 rounded-[8px] border-none"
+          className="p-3 rounded-[8px] border-none  text-slate-700"
           type="text"
           placeholder="Email"
           required
@@ -91,7 +98,7 @@ function Page() {
         <input
           id="password"
           onChange={(e) => setPassword(e.target.value)}
-          className="p-3 rounded-[8px] border-none"
+          className="p-3 rounded-[8px] border-none  text-slate-700"
           title="Must be at least 8 characters"
           pattern="[a-zA-Z0-9],{8,}"
           type="password"
@@ -125,6 +132,7 @@ function Page() {
     <section>
       <Image className="rounded-lg shadow-xl" src="/hero-reg.jpg" alt="RegisterPhoto" width={700} height={200}/>
     </section>
+    </div>
     </div>
   );
 }

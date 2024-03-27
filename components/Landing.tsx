@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import Slider from './Slider';
 
 function page() {
   return (
@@ -12,39 +13,7 @@ function page() {
       </Link>
      </section>
 
-     <section className='flex gap-x-8 bg-white/80 p-9 rounded-xl w-full border-2 shadow-xl mb-5'>
-      <div>
-       <a href="/register">
-      <Image className='cursor-pointer hover:scale-90' src="/landing-1.jpg" alt="hero-landing" width={150} height={50}/>
-      </a>
-      </div>
-
-      <div>
-      <a href="/register">
-      <Image className='cursor-pointer hover:scale-90' src="/landing-2.jpg" alt="hero-landing" width={150} height={50}/>
-      </a>
-      </div>
-      <div>
-      <a href="/register">
-      <Image className='cursor-pointer hover:scale-90' src="/landing-3.jpg" alt="hero-landing" width={150} height={50}/>
-      </a>
-      </div>
-      <div>
-      <a href="/register">
-      <Image className='cursor-pointer hover:scale-90' src="/landing-4.jpg" alt="hero-landing" width={150} height={50}/>
-      </a>
-      </div>
-      <div>
-      <a href="/register">
-      <Image className='cursor-pointer hover:scale-90' src="/landing-1.jpg" alt="hero-landing" width={150} height={50}/>
-      </a>
-      </div>
-      <div>
-      <a href="/register">
-      <Image className='cursor-pointer hover:scale-90' src="/landing-3.jpg" alt="hero-landing" width={150} height={50}/>
-      </a>
-      </div>
-     </section>
+     <Slider/>
       
       </div>
   )

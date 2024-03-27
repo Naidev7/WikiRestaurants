@@ -8,20 +8,20 @@ const authOptions = {
       credentials: {},
 
       async authorize(credentials){
-          const user = {id: "1"};
+          const user = {id: "1"}
           return user
-      }
-    })
+      },
+    }),
   ],
   session: {
-    strategy: "jwt"
+    strategy: "jwt",
   },
   secret: process.env.NEXT_SECRET_AUTH,
   pages:{
-    signIn: "/login"
-  }
+    signIn: "/login",
+  },
 };
 
-const handler = NextAuth(authOptions);
+const handler = NextAuth(authOptions)
 
 export { handler as GET, handler as POST };

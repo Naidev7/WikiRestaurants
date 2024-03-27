@@ -1,11 +1,14 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
+import Image from 'next/image';
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const router = useRouter()
   const [error, setError] = useState("");
 
   const handleSumbit = async (evt: React.FormEvent<HTMLFormElement>) => {
@@ -17,41 +20,38 @@ function Login() {
 
     try {
       
-      const resUserExist = await fetch('/Api/userExist', {
-        method: 'POST',
-        headers: {
-          "Content-type": "application/json"
-        },
-        body: JSON.stringify({
-          email
-        })
+      const resSignIn = await signIn("credentials",{
+        email,
+        password,
+        redirect: false
       });
 
-      const userData = await resUserExist.json();
-      if( userData ) return setError('Account not found, please register');
-
-      
-     
-
+      if(resSignIn?.error){
+        setError('Invalid Credentials.');
+        return;
+      }
+      router.replace('dashboard')
+    
     } catch (error) {
       console.log('error during login: ', error)
     }
   };
 
   return (
-    <section className="bg-slate-400 shadow-xl border-t-4 border-orange-400 flex flex-col items-center  gap-y-[20px] w-full p-8 rounded-[20px]">
-      <h1 className="font-bold text-white text-4xl">Login</h1>
+    <div className="flex">
+    <section className="bg-white/90 shadow-2xl flex flex-col items-center gap-y-[50px] w-full p-9 rounded-[20px]">
+      <h1 className="font-bold text-slate-700 text-6xl mt-5">Login</h1>
       <form onSubmit={handleSumbit} className="flex flex-col gap-y-10 p-4">
         <input
-          onInput={(e) => setEmail(e.target.value)}
+          onChange={(e) => setEmail(e.target.value)}
           className="p-3 rounded-[8px] border-none"
           type="email"
-          placeholder="karolB@gmail.com"
+          placeholder="Email"
           required
           autoComplete="off"
         />
         <input
-          onInput={(e) => setPassword(e.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
           className="p-3 rounded-[8px] border-none"
           type="password"
           placeholder="password"
@@ -67,19 +67,23 @@ function Login() {
       </form>
 
       {error && (
-        <div className="text-red-500 bg-white/80 w-fit text-sm py-1 px-3 rounded-[15px]">
+        <div className="text-red-500 w-fit text-sm py-1 px-3 rounded-[15px]">
           {error}
         </div>
       )}
 
       <article>
         <Link href="/register">
-          <h4 className="cursor-pointer text-white/80 hover:scale-75">
+          <h4 className="cursor-pointer text-slate-600 hover:scale-75">
             Create Account
           </h4>
         </Link>
       </article>
     </section>
+    <section>
+    <Image className="rounded-lg shadow-xl" src="/hero-reg.jpg" alt="RegisterPhoto" width={700} height={200}/>
+    </section>
+    </div>
   );
 }
 

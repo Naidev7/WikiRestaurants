@@ -1,8 +1,10 @@
-import Dashboard from "@/components/Dashboard";
+import Profile from "@/components/Profile"
 
 function page() {
   return (
-    <Dashboard/>
+    <section>
+      <Profile/>
+    </section>
   )
 }
 

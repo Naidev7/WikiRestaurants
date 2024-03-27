@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from 'next/image';
 
 
 function Page() {
@@ -20,7 +21,7 @@ function Page() {
     
     try {
 
-      const resUserExist = await fetch('/Api/userExist', {
+      const resUserExist = await fetch('/api/userExist', {
         method: 'POST',
         headers: {
           "Content-type": "application/json"
@@ -37,7 +38,7 @@ function Page() {
       }
 
 
-      const res = await fetch("/Api/register", {
+      const res = await fetch("/api/register", {
         method: "POST",
         headers: {
           "Content-type": "application/json",
@@ -64,8 +65,9 @@ function Page() {
   };
 
   return (
-    <section className="bg-slate-400 shadow-xl border-t-4 border-orange-400 flex flex-col items-center  gap-y-[20px] w-full p-8 rounded-[20px]">
-      <h1 className="font-bold text-white text-4xl">Register</h1>
+    <div className="flex">
+    <section className="bg-white/90 shadow-2xl flex flex-col items-center  gap-y-[20px] w-full p-9 rounded-[20px]">
+      <h1 className="font-bold text-slate-700 text-6xl">Register</h1>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-y-10 p-4">
         <input
@@ -73,7 +75,7 @@ function Page() {
           onChange={(e) => setName(e.target.value)}
           className="p-3 rounded-[8px] border-none"
           type="text"
-          placeholder="Karol Brown"
+          placeholder="Name"
           required
           value={name}
         />
@@ -82,7 +84,7 @@ function Page() {
           onChange={(e) => setEmail(e.target.value)}
           className="p-3 rounded-[8px] border-none"
           type="text"
-          placeholder="karolB@gmail.com"
+          placeholder="Email"
           required
           value={email}
         />
@@ -97,7 +99,7 @@ function Page() {
           required
           value={password}
         />
-        <p className="text-white/75">Must be at least 8 characters</p>
+        <p className="text-slate-500 text-xs text-center">Must be at least 8 characters</p>
         <input
           onClick={handleSubmit}
           className="bg-orange-400 rounded-[15px] w-[40%] h-[40px] m-auto text-white font-bold  hover:scale-90 cursor-pointer "
@@ -114,12 +116,16 @@ function Page() {
 
       <article>
         <Link href="/login">
-          <h4 className="cursor-pointer text-white/80 hover:scale-75">
+          <h4 className="cursor-pointer text-slate-600 hover:scale-75">
             Already Have an Account
           </h4>
         </Link>
       </article>
     </section>
+    <section>
+      <Image className="rounded-lg shadow-xl" src="/hero-reg.jpg" alt="RegisterPhoto" width={700} height={200}/>
+    </section>
+    </div>
   );
 }
 

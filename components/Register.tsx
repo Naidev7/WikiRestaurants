@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 
 function Page() {
@@ -9,6 +9,7 @@ function Page() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const router = useRouter();
 
   const handleSubmit = async (evt: React.FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
@@ -31,7 +32,7 @@ function Page() {
 
       const { userData } = await resUserExist.json();
       if(userData){
-        setError('User already exist');
+        setError('User already exist, please login');
         return;
       }
 
@@ -49,8 +50,10 @@ function Page() {
       });
 
       if (res.ok) {
-        console.log('tengo que redirecionar boluda')
-     /*    redirect("/login"); */
+        setName('');
+        setEmail('');
+        setPassword(''); 
+        router.push("/login")
 
       } else {
         console.log("Error during registration.");
@@ -71,6 +74,8 @@ function Page() {
           className="p-3 rounded-[8px] border-none"
           type="text"
           placeholder="Karol Brown"
+          required
+          value={name}
         />
         <input
           id="email"
@@ -78,24 +83,31 @@ function Page() {
           className="p-3 rounded-[8px] border-none"
           type="text"
           placeholder="karolB@gmail.com"
+          required
+          value={email}
         />
         <input
           id="password"
           onChange={(e) => setPassword(e.target.value)}
           className="p-3 rounded-[8px] border-none"
+          title="Must be at least 8 characters"
+          pattern="[a-zA-Z0-9],{8,}"
           type="password"
           placeholder="Password"
+          required
+          value={password}
         />
+        <p className="text-white/75">Must be at least 8 characters</p>
         <input
           onClick={handleSubmit}
           className="bg-orange-400 rounded-[15px] w-[40%] h-[40px] m-auto text-white font-bold  hover:scale-90 cursor-pointer "
-          type="button"
+          type="submit"
           value="Register"
         />
       </form>
 
       {error && (
-        <div className="text-red-500 bg-white/80 w-fit text-sm py-1 px-3 rounded-[15px]">
+        <div className="text-red-500 w-fit text-sm py-1 px-3 rounded-[15px]">
           {error}
         </div>
       )}

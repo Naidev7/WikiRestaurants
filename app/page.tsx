@@ -1,13 +1,18 @@
 import Image from "next/image";
 import Link from "next/link";
-/* import Landing from "@/components/Landing"; */
 import Login from "@/components/Login";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+import { authOptions } from "./api/auth/[...nextauth]/route";
 
-function page() {
+async function page() {
+  const session = await getServerSession(authOptions);
+  
+  if(session) redirect("/dashboard");
+
   return (
     <main className="flex flex-col ">
       <Login/>
-    {/*   <Landing /> */}
     </main>
   );
 }

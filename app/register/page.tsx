@@ -1,11 +1,14 @@
-import Register from "../../components/Register"
+import Register from "../../components/Register";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+import { authOptions } from "../api/auth/[...nextauth]/route";
 
-function page() {
-  return (
-    <section>
-      <Register/>
-    </section>
-  )
+async function page() {
+  const session = await getServerSession(authOptions);
+  
+  if(session) redirect("/dashboard");
+  
+  return <Register />;
 }
 
-export default page
+export default page;

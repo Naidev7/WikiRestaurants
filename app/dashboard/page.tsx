@@ -1,9 +1,11 @@
 import Profile from "@/components/Profile"
+import RestList from "@/components/RestList"
 
 function page() {
   return (
-    <section>
+    <section className="flex">
       <Profile/>
+      <RestList/>
     </section>
   )
 }

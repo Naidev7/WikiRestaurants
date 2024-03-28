@@ -6,7 +6,6 @@ import { signIn } from "next-auth/react";
 
 
 import Image from "next/image";
-import { IoArrowBackCircleSharp } from "react-icons/io5";
 
 
 function Login() {
@@ -44,10 +43,7 @@ function Login() {
   };
 
   return (
-    <div>
-      <a href="/">
-        <IoArrowBackCircleSharp className="mb-9 text-4xl cursor-pointer hover:scale-75" />
-      </a>
+    <div className=" flex justify-center items-center h-screen w-screen ">
       <div className="flex p-6">
         <section className="bg-white/90 shadow-2xl flex flex-col items-center gap-y-[50px] w-full p-9 rounded-[20px]">
           <h1 className="font-bold text-slate-700 text-6xl mt-5">Login</h1>

@@ -55,7 +55,7 @@ function Page() {
         setName('');
         setEmail('');
         setPassword(''); 
-        router.push("/login")
+        router.push("/")
 
       } else {
         console.log("Error during registration.");
@@ -122,7 +122,7 @@ function Page() {
       )}
 
       <article>
-        <Link href="/login">
+        <Link href="/">
           <h4 className="cursor-pointer text-slate-600 hover:scale-75">
             Already Have an Account
           </h4>

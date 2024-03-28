@@ -1,11 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
-import Landing from "@/components/Landing";
+/* import Landing from "@/components/Landing"; */
+import Login from "@/components/Login";
 
 function page() {
   return (
     <main className="flex flex-col ">
-      <Landing />
+      <Login/>
+    {/*   <Landing /> */}
     </main>
   );
 }

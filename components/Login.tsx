@@ -3,14 +3,18 @@ import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
+
+
 import Image from "next/image";
 import { IoArrowBackCircleSharp } from "react-icons/io5";
+
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const router = useRouter();
   const [error, setError] = useState("");
+
+  const router = useRouter();
 
   const handleSumbit = async (evt: React.FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
@@ -18,19 +22,22 @@ function Login() {
       setError("All fields are necesary");
       return;
     }
-
     try {
       const resSignIn = await signIn("credentials", {
         email,
         password,
         redirect: false,
       });
+      console.log('se ha creado token? ', resSignIn)
 
       if (resSignIn?.error) {
         setError("Invalid credentials.");
+        console.log('No se ha creado token, algun dato es malo: ', resSignIn.error)
         return;
       }
+      
       router.replace("dashboard");
+
     } catch (error) {
       console.log("error during login: ", error);
     }
@@ -62,7 +69,6 @@ function Login() {
               autoComplete="off"
             />
             <input
-              onClick={handleSumbit}
               className="bg-orange-400 rounded-[15px] w-[80px] h-[40px] m-auto text-white font-semibold hover:scale-90 cursor-pointer "
               type="submit"
               value="Login"

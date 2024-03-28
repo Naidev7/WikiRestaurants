@@ -1,5 +1,8 @@
+import { connectDB } from "@/app/libs/mongodb";
+import User from "@/app/models/user";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import bcrypt from "bcrypt";
 
 const authOptions = {
   providers: [
@@ -8,17 +11,36 @@ const authOptions = {
       credentials: {},
 
       async authorize(credentials){
-          const user = {id: "1"};
-          return user;
+          const { email, password } = credentials;
+
+          try {
+            await connectDB();
+            const user = await User.findOne({ email: email });
+
+            if(!user){
+              return null
+            }
+
+            const passwordMatch = await bcrypt.compare(password, user.password);
+
+            if(!passwordMatch){
+              return null;
+            }
+
+            return user;
+            
+          } catch (error) {
+            console.log('Error: ', error)
+          }
       },
     }),
   ],
   session: {
     strategy: "jwt",
   },
-  secret: 'secret',
+  secret: process.env.NEXTAUTH_SECRET,
   pages:{
-    signIn: "/login",
+    signIn: "/",
   },
 };
 
